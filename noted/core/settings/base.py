@@ -131,8 +131,9 @@ DATABASES = {
 }
 
 CACHES = {
-    "default": {
-        "BACKEND": "common.cache.RedisDummyCache",
+    'default': {
+        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379',
     }
 }
 
@@ -277,14 +278,14 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Simple Mail Transfer Protocol (SMTP) configuration.
 # The project uses Yandex SMTP.
-EMAIL_USE_TLS = False
-EMAIL_USE_SSL = True
-EMAIL_HOST = "smtp.yandex.ru"
-EMAIL_HOST_USER = get_env_variable("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = get_env_variable("EMAIL_HOST_PASSWORD")
-SERVER_EMAIL = get_env_variable("EMAIL_HOST_USER")
-DEFAULT_FROM_EMAIL = get_env_variable("EMAIL_HOST_USER")
-EMAIL_PORT = 465
+# EMAIL_USE_TLS = False
+# EMAIL_USE_SSL = True
+# EMAIL_HOST = "smtp.yandex.ru"
+# EMAIL_HOST_USER = get_env_variable("EMAIL_HOST_USER")
+# EMAIL_HOST_PASSWORD = get_env_variable("EMAIL_HOST_PASSWORD")
+# SERVER_EMAIL = get_env_variable("EMAIL_HOST_USER")
+# DEFAULT_FROM_EMAIL = get_env_variable("EMAIL_HOST_USER")
+# EMAIL_PORT = 465
 
 AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
@@ -306,20 +307,20 @@ ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 ACCOUNT_USERNAME_MIN_LENGTH = 3
 SOCIALACCOUNT_EMAIL_VERIFICATION = False
 SOCIALACCOUNT_PROVIDERS = {
-    "yandex": {
-        "APP": {
-            "client_id": get_env_variable("YANDEX_ID"),
-            "secret": get_env_variable("YANDEX_SECRET"),
-            "SCOPE": ["email"],
-        }
-    },
-    "github": {
-        "APP": {
-            "client_id": get_env_variable("GITHUB_ID"),
-            "secret": get_env_variable("GITHUB_SECRET"),
-            "SCOPE": ["email"],
-        }
-    },
+    # "yandex": {
+    #     "APP": {
+    #         "client_id": get_env_variable("YANDEX_ID"),
+    #         "secret": get_env_variable("YANDEX_SECRET"),
+    #         "SCOPE": ["email"],
+    #     }
+    # },
+    # "github": {
+    #     "APP": {
+    #         "client_id": get_env_variable("GITHUB_ID"),
+    #         "secret": get_env_variable("GITHUB_SECRET"),
+    #         "SCOPE": ["email"],
+    #     }
+    # },
     "google": {
         # CLIENT_ID and SECRET provieds via admin site.
         "SCOPE": [

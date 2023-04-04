@@ -1,0 +1,44 @@
+
+version: '3'
+services:
+    app:
+        build:
+            context: .
+        container_name: noted_app
+        volumes:
+            - ./noted:/noted
+        ports:
+          - 8000:8000
+        networks:
+            - noted-network
+        depends_on:
+            db:
+                condition: service_healthy
+
+    db:
+        image: postgres
+        restart: always
+        tty: true
+        container_name: db
+        volumes:
+            - ./postgres_data:/var/lib/postgresql/data/
+        ports:
+            - 5432:5432
+        networks:
+            - noted-network
+        env_file:
+            - .env
+        environment:
+            POSTGRES_USER: ${DATABASE_USER}
+            POSTGRES_DB: ${DATABASE_NAME}
+            POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+        
+       
+        healthcheck:
+            test: ["CMD-SHELL", "sh -c 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}'"]
+            interval: 10s
+            timeout: 3s
+            retries: 3
+
+networks:
+  noted-network:
