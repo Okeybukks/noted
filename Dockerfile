@@ -16,9 +16,9 @@ EXPOSE 8000
 
 WORKDIR /noted/noted
 
-RUN python3 manage.py makemigrate --settings=core.settings.production
+RUN python3 manage.py makemigrations --settings=core.settings.production
 
-RUN manage.py collectstatic --noinput --settings=core.settings.production
+RUN python3 manage.py collectstatic --noinput --settings=core.settings.production
 
 # Set the entry point command for gunicorn
 CMD ["gunicorn", "--bind", "0.0.0.0:8000", "core.wsgi"]

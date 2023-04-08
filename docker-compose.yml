@@ -36,10 +36,22 @@ services:
             test:
                 [
                     "CMD-SHELL",
-                    "sh -c 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}'"
+                    "sh -c 'pg_isready -U $DATABASE_USER} -d ${DATABASE_NAME}'"
                 ]
             interval: 10s
             timeout: 3s
             retries: 3
+
+    redis:
+        image: redis
+        container_name: redis
+        networks:
+            - noted-network
+        ports:
+            - 6379:6379
+        depends_on:
+            - postgres
+        volumes:
+            - ./redis.conf:/usr/local/etc/redis/redis.conf
 networks:
     noted-network:
